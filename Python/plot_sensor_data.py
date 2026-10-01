@@ -52,55 +52,6 @@ acc_mag = deque(maxlen=MAX_POINTS)
 
 start_time = time.time()
 
-
-
-# # ==================================================
-# # GRAPH SETUP
-# # ==================================================
-
-# fig, axes = plt.subplots(
-#     3,
-#     1,
-#     figsize=(10, 10),
-#     sharex=True
-# )
-
-
-# # Temperature / humidity
-
-# temp_line, = axes[0].plot([], [], label="Temperature (°C)")
-# humidity_line, = axes[0].plot([], [], label="Humidity (%)")
-
-# axes[0].set_ylabel("Temp / RH")
-# axes[0].grid(True)
-# axes[0].legend()
-
-
-
-# # Water / battery
-
-# water_line, = axes[1].plot([], [], label="Water sensor")
-# battery_line, = axes[1].plot([], [], label="Battery (V)")
-
-# axes[1].set_ylabel("Value")
-# axes[1].grid(True)
-# axes[1].legend()
-
-
-
-# # Acceleration
-
-# ax_line, = axes[2].plot([], [], label="X")
-# ay_line, = axes[2].plot([], [], label="Y")
-# az_line, = axes[2].plot([], [], label="Z")
-# amag_line, = axes[2].plot([], [], label="Magnitude")
-
-# axes[2].set_ylabel("m/s²")
-# axes[2].set_xlabel("Time (s)")
-# axes[2].grid(True)
-# axes[2].legend()
-
-
 # ==================================================
 # GRAPH SETUP
 # ==================================================
@@ -420,15 +371,15 @@ def update(frame):
 
         if len(times) > 1:
             axes[0].set_xlim(
-                max(0, times[-1] - 60),
+                max(0, times[-1] - 30),
                 times[-1] + 1
             )
             
         # Temperature / humidity
-        axes[0].set_ylim(0, 100)
+        # axes[0].set_ylim(0, 100)
 
         # Water sensor
-        axes[1].set_ylim(0, 4095)
+        axes[1].set_ylim(0, 5000)
 
         # Acceleration
         axes[2].set_ylim(-20, 20)
@@ -473,8 +424,8 @@ def update(frame):
 ani = animation.FuncAnimation(
     fig,
     update,
-    interval=200,
-    blit=True
+    interval=400,
+    blit=False
 )
 
 

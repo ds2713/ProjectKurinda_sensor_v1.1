@@ -532,7 +532,7 @@ void loop()
   static uint32_t lastSample = 0;
 
   if (
-      millis() - lastSample >= 1000)
+      millis() - lastSample >= 500)
   {
 
     lastSample = millis();
