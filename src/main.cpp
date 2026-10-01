@@ -3,6 +3,7 @@
 
 #include <LIS2DW12Sensor.h>
 #include <Adafruit_SHT4x.h>
+#include <ArduinoJson.h>
 
 // =====================================================
 // PIN DEFINITIONS
@@ -344,6 +345,30 @@ bool collectSensors(SensorData &data)
 // PRINT FUNCTION
 // =====================================================
 
+void printJSON(const SensorData &data)
+{
+    StaticJsonDocument<512> doc;
+
+    doc["timestamp"] = data.timestamp;
+
+    doc["water"] = data.water;
+
+    doc["battery"] = data.battery;
+
+    doc["acceleration_x"] = data.ax;
+    doc["acceleration_y"] = data.ay;
+    doc["acceleration_z"] = data.az;
+    doc["acceleration"] = data.acceleration;
+
+    doc["temperature"] = data.temperature;
+    doc["humidity"] = data.humidity;
+
+
+    serializeJson(doc, Serial);
+
+    Serial.println();
+}
+
 void printData(const SensorData &data)
 {
 
@@ -516,9 +541,10 @@ void loop()
 
     collectSensors(data);
 
-    printData(data);
+    // printData(data);
+    printJSON(data);
 
-    readRTCControl();
-    readRTCStatus();
+    // readRTCControl();
+    // readRTCStatus();
   }
 }
